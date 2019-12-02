@@ -1,0 +1,26 @@
+{
+  "name": "racketsls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "vue:dev": "cd src/vue && npm start",
+    "sls:dev": "sls offline",
+    "sls:deploy": "sls deploy function -f app",
+    "docker:build": "docker build -t racket-sls-container .",
+    "docker:deploy": "node ./src/scripts/deploy.js",
+    "rkt:watch": "node ./src/scripts/watcher.js",
+    "rkt:build": "raco exe --orig-exe -vo ./dev/application ./src/app/app.rkt"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "node": "^12.1.0",
+    "serverless-offline": "^4.10.0"
+  },
+  "devDependencies": {
+    "node-watch": "^0.6.2",
+    "shelljs": "^0.8.3"
+  }
+}

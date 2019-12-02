@@ -1,0 +1,26 @@
+service: racket-serverless
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: eu-central-1
+
+plugins:
+  - serverless-offline
+
+package:
+  include:
+    - dist/**
+  exclude:
+    - node_modules/**
+    - src/**
+    - dev/**
+
+functions:
+  app:
+    handler: dist/handler.app
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
