@@ -4,7 +4,7 @@ A Racket Rest Api which can be deployed to AWS Lambda with a restdb.io Database 
 
 ## SETUP
 
-Install raco and docker.  
+Install [Racket](https://docs.racket-lang.org/pollen/Installation.html) and docker.  
 Replace <DATABASE_URL> and <DATABASE_API_KEY> in the "request.rkt" file with your credentials.
 
 ## Vue development
