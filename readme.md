@@ -17,7 +17,7 @@ npm run sls:dev
 ## Racket development
 
 ```bash
-npm run rkt:watch
+npm run api:watch
 npm run sls:dev
 ```
 
@@ -27,7 +27,8 @@ Build the Docker Container and build the Racket Application
 
 ```bash
 npm run docker:build
-npm run docker:deploy
+npm run api:build:prod
+npm run sls:deploy:prod
 ```
 
 Now deploy the Lambda to AWS
