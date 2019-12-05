@@ -10,8 +10,8 @@ Replace <DATABASE_URL> and <DATABASE_API_KEY> in the "request.rkt" file with you
 ## Vue development
 
 ```bash
-npm run sls:dev
 npm run vue:dev
+npm run sls:dev
 ```
 
 ## Racket development
