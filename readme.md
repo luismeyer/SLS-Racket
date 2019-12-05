@@ -1,6 +1,6 @@
 # Racket SLS
 
-A Racket Server which can be deployed to AWS Lambda with a restdb.io Database and Vue frontend.
+A Racket Rest Api which can be deployed to AWS Lambda with a restdb.io Database and Vue frontend.
 
 ## SETUP
 
@@ -23,14 +23,14 @@ npm run sls:dev
 
 ## Deployment
 
-Build the Docker Container and deploy the Racket application
+Build the Docker Container and build the Racket Application
 
 ```bash
 npm run docker:build
 npm run docker:deploy
 ```
 
-Now deploy the lambda to AWS
+Now deploy the Lambda to AWS
 
 ```bash
 npm run sls:deploy
