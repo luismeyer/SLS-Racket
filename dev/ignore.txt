@@ -1,0 +1,1 @@
+This file prevents git from ignoring this directory. Raco cannot compile if the output directory does not exist.

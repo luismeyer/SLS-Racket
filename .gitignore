@@ -9,4 +9,5 @@ jspm_packages
 .env
 
 dist/**
-dev/**
+dev/application
+**/compiled/**

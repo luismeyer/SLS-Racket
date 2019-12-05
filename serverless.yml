@@ -9,17 +9,26 @@ provider:
 plugins:
   - serverless-offline
 
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  environments:
+    prod:
+      LAMBDA: dist/handler.app
+      EXEC_PATH: ./linux-application
+    dev:
+      LAMBDA: src/api/handler.app
+      EXEC_PATH: ./dev/application
+
 package:
   include:
     - dist/**
   exclude:
-    - node_modules/**
-    - src/**
-    - dev/**
+    - /**
 
 functions:
-  app:
-    handler: dist/handler.app
+  api:
+    handler: ${self:custom.environments.${self:custom.stage}.LAMBDA}
+    environment: ${self:custom.environments.${self:custom.stage}}
     events:
       - http:
           path: /{proxy+}

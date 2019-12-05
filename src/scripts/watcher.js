@@ -1,12 +1,23 @@
-const shell = require('shelljs');
-var watch = require('node-watch');
+const shell = require("shelljs");
+var watch = require("node-watch");
 
-console.info('Compiling Files...');
-shell.exec('raco exe --orig-exe -vo ./dev/application ./src/app/app.rkt');
-console.info('Finished compiling. Waiting for Files to change...');
+const buildApp = () => {
+  shell.exec(`cp ./src/api/handler.js ./dist/handler.js`);
+  shell.exec("npm run api:build");
+};
 
-watch('./src/app', { recursive: true }, function(evt, name) {
-  console.info(`Event ${evt} triggered`);
-  console.info(`File ${name} changed recompiling...`);
-  shell.exec('raco exe --orig-exe -vo ./dev/application ./src/app/app.rkt');
-});
+console.info("Compiling Files...");
+buildApp();
+console.info("Finished compiling. Waiting for Files to change...");
+
+watch(
+  "./src/api", {
+    persistent: true,
+    recursive: true
+  },
+  (evt, name) => {
+    console.info(`Event ${evt} triggered`);
+    console.info(`File ${name} changed recompiling...`);
+    buildApp();
+  }
+);

@@ -5,12 +5,12 @@
   "main": "handler.js",
   "scripts": {
     "vue:dev": "cd src/vue && npm start",
-    "sls:dev": "sls offline",
-    "sls:deploy": "sls deploy function -f app",
+    "sls:dev": "sls offline --stage dev",
+    "sls:deploy": "sls deploy function -f api --stage prod",
     "docker:build": "docker build -t racket-sls-container .",
-    "docker:deploy": "node ./src/scripts/deploy.js",
-    "rkt:watch": "node ./src/scripts/watcher.js",
-    "rkt:build": "raco exe --orig-exe -vo ./dev/application ./src/app/app.rkt"
+    "api:watch": "node ./src/scripts/watcher.js",
+    "api:build": "raco exe --orig-exe -vo ./dev/application ./src/api/app.rkt",
+    "api:build:prod": "node ./src/scripts/deploy.js"
   },
   "author": "",
   "license": "ISC",
