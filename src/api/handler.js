@@ -86,7 +86,9 @@ exports.app = function (event, context) {
   proc.handlerCallback = result => {
     context.done(null, {
       statusCode: 200,
-      body: JSON.stringify(result)
+      body: JSON.stringify({
+        data: result
+      })
     });
   };
 

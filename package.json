@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "vue:dev": "cd src/vue && npm start",
+    "vue:dev": "cd src/vue && npm run serve",
     "sls:dev": "sls offline --stage dev",
     "sls:deploy": "sls deploy function -f api --stage prod",
     "docker:build": "docker build -t racket-sls-container .",
