@@ -16,7 +16,5 @@ install:
   - npm install
 script:
   - docker build -t racket-sls-container .
-  - node ./src/scripts/deploy.js
-deploy:
-  provider: script
-  script: serverless deploy --stage prod
+  - node ./src/scripts/build.js
+  - serverless deploy --stage prod
