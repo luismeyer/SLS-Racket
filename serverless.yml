@@ -38,4 +38,5 @@ functions:
           method: any
     package:
       include:
+        - secrets/**
         - dist/**
