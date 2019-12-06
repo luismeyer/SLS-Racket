@@ -6,12 +6,12 @@
   "scripts": {
     "vue:dev": "cd src/vue && npm run serve",
     "vue:build": "cd src/vue && npm run build",
-    "sls:dev": "sls offline --stage dev",
+    "sls:dev": "serverless offline --stage dev",
     "docker:build": "docker build -t racket-sls-container .",
     "api:watch": "node ./src/scripts/watcher.js",
     "api:build-dev": "raco exe --orig-exe -vo ./dev/application ./src/api/app.rkt",
     "api:build-prod": "node ./src/scripts/deploy.js",
-    "sls:deploy-prod": "sls deploy --stage prod",
+    "sls:deploy-prod": "serverless deploy --stage prod",
     "encrypt:secrets": "travis encrypt-file secrets/secrets.yml secrets/secrets.yml.enc"
   },
   "author": "",
