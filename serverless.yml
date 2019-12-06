@@ -14,16 +14,19 @@ custom:
   environments:
     prod:
       LAMBDA: dist/handler.app
-      EXEC_PATH: ./linux-application
+      EXEC_PATH: ./dist/linux-application
+      DATABASE_HOST: ${file(./secrets/secrets.yml):DATABASE_HOST}
+      DATABASE_API_KEY: ${file(./secrets/secrets.yml):DATABASE_API_KEY}
     dev:
       LAMBDA: src/api/handler.app
       EXEC_PATH: ./dev/application
+      DATABASE_HOST: ${file(./secrets/secrets.yml):DATABASE_HOST}
+      DATABASE_API_KEY: ${file(./secrets/secrets.yml):DATABASE_API_KEY}
 
 package:
-  include:
-    - dist/**
+  individually: true
   exclude:
-    - /**
+    - ./**
 
 functions:
   api:
@@ -33,3 +36,6 @@ functions:
       - http:
           path: /{proxy+}
           method: any
+    package:
+      include:
+        - dist/**

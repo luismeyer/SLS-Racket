@@ -3,7 +3,7 @@ var watch = require("node-watch");
 
 const buildApp = () => {
   shell.exec(`cp ./src/api/handler.js ./dist/handler.js`);
-  shell.exec("npm run api:build");
+  shell.exec("npm run api:build-dev");
 };
 
 console.info("Compiling Files...");
@@ -13,7 +13,8 @@ console.info("Finished compiling. Waiting for Files to change...");
 watch(
   "./src/api", {
     persistent: true,
-    recursive: true
+    recursive: true,
+    filter: /\.rkt$/
   },
   (evt, name) => {
     console.info(`Event ${evt} triggered`);

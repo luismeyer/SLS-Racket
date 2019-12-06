@@ -4,10 +4,16 @@ jspm_packages
 
 # Serverless directories
 .serverless
+secrets.yml
 
 # Environment Varibles
 .env
 
+# Dev and Dist directories
 dist/**
 dev/application
+
+# Racket files
 **/compiled/**
+
+.DS_STORE
