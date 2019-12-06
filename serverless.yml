@@ -36,6 +36,7 @@ functions:
       - http:
           path: /{proxy+}
           method: any
+          cors: true
     package:
       include:
         - secrets/**

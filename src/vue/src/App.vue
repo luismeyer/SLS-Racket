@@ -3,11 +3,7 @@
     <Title title="Racket Vue App" />
     <div class="rackets">
       <div :key="index" v-for="(racket, index) in rackets">
-        <Racket
-          :name="racket.name"
-          :image="racket.image"
-          :price="racket.price"
-        />
+        <Racket :name="racket.name" :image="racket.image" :price="racket.price" />
       </div>
     </div>
     <div>
@@ -20,6 +16,7 @@
 import Title from "./components/Title";
 import Racket from "./components/Racket";
 import RacketCreator from "./components/RacketCreator";
+import { API_URL } from "./utils";
 
 export default {
   name: "App",
@@ -34,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    fetch("http://localhost:3000/get/rackets").then(response =>
+    fetch(`${API_URL}/api/get/rackets`).then(response =>
       response.json().then(({ data }) => {
         this.rackets = JSON.parse(data);
       })
