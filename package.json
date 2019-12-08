@@ -6,6 +6,7 @@
   "scripts": {
     "vue:dev": "cd src/vue && npm run serve",
     "vue:build": "cd src/vue && npm run build",
+    "vue:install": "cd src/vue && npm install",
     "sls:dev": "serverless offline --stage dev",
     "docker:build": "docker build -t racket-sls-container .",
     "api:watch": "node ./src/scripts/watcher.js",
