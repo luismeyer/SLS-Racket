@@ -1,19 +1,29 @@
 <template>
   <div id="app">
-    <Title title="Racket Vue App" />
-    <div class="rackets">
-      <div :key="index" v-for="(racket, index) in rackets">
-        <Racket :name="racket.name" :image="racket.image" :price="racket.price" />
-      </div>
-    </div>
-    <div>
+    <Container space-top="S" space-bottom="S">
+      <Title title="Racket Vue App" />
+    </Container>
+    <Container space-bottom="XL">
       <RacketCreator />
-    </div>
+    </Container>
+    <Container class="rackets" space-bottom="L">
+      <Racket
+        v-for="(racket, index) in rackets"
+        ref="rackets"
+        :key="index"
+        :name="racket.name"
+        :image="racket.image"
+        :price="racket.price"
+        :hidden="true"
+      />
+    </Container>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
 import Title from "./components/Title";
+import Container from "./components/Container";
 import Racket from "./components/Racket";
 import RacketCreator from "./components/RacketCreator";
 import { API_URL } from "./utils";
@@ -23,17 +33,31 @@ export default {
   components: {
     RacketCreator,
     Title,
-    Racket
+    Racket,
+    Container
   },
   data() {
     return {
-      rackets: null
+      timeout: null,
+      data: [],
+      rackets: []
     };
   },
   mounted() {
-    fetch(`${API_URL}/api/get/rackets`).then(response =>
+    fetch(`${API_URL}/get/rackets`).then(response =>
       response.json().then(({ data }) => {
         this.rackets = JSON.parse(data);
+
+        Vue.nextTick(() => {
+          const showGridItem = index => {
+            this.$refs.rackets[index].$el.style.display = "flex";
+            if (index < this.rackets.length - 1) {
+              setTimeout(() => showGridItem(index + 1), 100);
+            }
+          };
+
+          showGridItem(0);
+        });
       })
     );
   }
@@ -42,7 +66,9 @@ export default {
 
 <style>
 body {
+  margin: 0;
   background: #2c3e50;
+  width: 100vw;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -52,8 +78,17 @@ body {
 }
 .rackets {
   display: grid;
-  grid-template-columns: repeat(3, 250px);
-  flex-wrap: wrap;
+  grid-template-columns: repeat(1, 1fr);
+  justify-content: center;
+  grid-gap: 20px;
   margin-bottom: 50px;
+}
+@media only screen and (min-device-width: 425px) {
+  .rackets {
+    grid-template-columns: repeat(auto-fill, 200px);
+  }
+}
+.racket {
+  display: none;
 }
 </style>

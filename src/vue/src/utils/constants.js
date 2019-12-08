@@ -1,1 +1,5 @@
-export const API_URL = "https://f5xgq1isq7.execute-api.eu-central-1.amazonaws.com/prod";
+if (!process.env.VUE_APP_LAMBDA_ENDPOINT) {
+    throw Error('Missing env Variable LAMBDA_ENDPOINT')
+}
+
+export const API_URL = process.env.VUE_APP_LAMBDA_ENDPOINT;

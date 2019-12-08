@@ -17,4 +17,3 @@
                                                          (hash-ref data 'price) 
                                                          (hash-ref data 'image)))]
     [else "Error: Wrong Arguments"]))
-  

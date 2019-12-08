@@ -31,13 +31,20 @@ export default {
   },
   methods: {
     submit() {
-      fetch(`${API_URL}/api/post/create-racket`, {
+      if (!this.name || !this.image || !this.price) {
+        return;
+      }
+      fetch(`${API_URL}/post/create-racket`, {
         method: "POST",
-        body: {
+        body: JSON.stringify({
           name: this.name,
           image: this.image,
           price: this.price
-        }
+        })
+      }).then(() => {
+        this.name = "";
+        this.image = "";
+        this.price = "";
       });
     }
   }
@@ -46,7 +53,7 @@ export default {
 
 <style scoped>
 .input-wrapper {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
 }
 </style>

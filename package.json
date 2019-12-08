@@ -12,17 +12,20 @@
     "api:build-dev": "raco exe --orig-exe -vo ./dev/application ./src/api/app.rkt",
     "api:build-prod": "node ./src/scripts/build.js",
     "sls:deploy-prod": "serverless deploy --stage prod",
-    "encrypt:secrets": "travis encrypt-file secrets/secrets.yml secrets/secrets.yml.enc"
+    "encrypt:secrets": "travis encrypt-file secrets/secrets.yml secrets/secrets.yml.enc",
+    "build": "npm run api:build-prod && npm run vue:build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "node": "^12.1.0",
-    "serverless": "^1.59.1"
+    "serverless": "^1.59.2",
+    "serverless-finch": "^2.4.3"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "node-watch": "^0.6.2",
-    "shelljs": "^0.8.3",
-    "serverless-offline": "^5.10.1"
+    "serverless-offline": "^5.10.1",
+    "shelljs": "^0.8.3"
   }
 }

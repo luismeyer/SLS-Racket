@@ -8,17 +8,21 @@ provider:
 
 plugins:
   - serverless-offline
+  - serverless-finch
 
 custom:
   stage: ${opt:stage, self:provider.stage}
+  client:
+    bucketName: racket-api-client
+    distributionFolder: src/vue/dist
   environments:
     prod:
-      LAMBDA: dist/handler.app
+      LAMBDA_PATH: dist/handler.app
       EXEC_PATH: ./dist/linux-application
       DATABASE_HOST: ${file(./secrets/secrets.yml):DATABASE_HOST}
       DATABASE_API_KEY: ${file(./secrets/secrets.yml):DATABASE_API_KEY}
     dev:
-      LAMBDA: src/api/handler.app
+      LAMBDA_PATH: src/api/handler.app
       EXEC_PATH: ./dev/application
       DATABASE_HOST: ${file(./secrets/secrets.yml):DATABASE_HOST}
       DATABASE_API_KEY: ${file(./secrets/secrets.yml):DATABASE_API_KEY}
@@ -30,7 +34,7 @@ package:
 
 functions:
   api:
-    handler: ${self:custom.environments.${self:custom.stage}.LAMBDA}
+    handler: ${self:custom.environments.${self:custom.stage}.LAMBDA_PATH}
     environment: ${self:custom.environments.${self:custom.stage}}
     events:
       - http:
