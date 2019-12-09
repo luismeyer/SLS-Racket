@@ -2,7 +2,6 @@ const shell = require("shelljs");
 const fs = require("fs");
 
 // Important directories and files
-console.log(__dirname)
 const distDir = "./dist";
 const srcRoot = "./src";
 const app = `${srcRoot}/app.rkt`;
@@ -22,7 +21,7 @@ const id = shell.exec("docker run -dt racket-sls-container").stdout.trim();
 
 // Push Application to Container
 shell.echo("Step 3/7: Copying Application to Container");
-shell.exec(`docker cp ${srcRoot} ${id}:/api`);
+shell.exec(`docker cp ${srcRoot} ${id}:/`);
 
 // Execute build script in the Container
 shell.echo("Step 4/7: Building Application binary");
