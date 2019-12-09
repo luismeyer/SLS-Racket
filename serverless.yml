@@ -14,7 +14,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   client:
     bucketName: racket-api-client
-    distributionFolder: src/vue/dist
+    distributionFolder: packages/frontend/dist
   environments:
     prod:
       LAMBDA_PATH: packages/api/dist/handler.app
