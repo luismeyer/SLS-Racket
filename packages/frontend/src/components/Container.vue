@@ -24,7 +24,7 @@ export default {
   max-width: 100%;
   padding: 16px;
 }
-@media only screen and (min-device-width: 425px) {
+@media only screen and (min-device-width: 650px) {
   .container {
     padding: 0;
     margin: 0 auto;

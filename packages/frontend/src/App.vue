@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <Container space-top="S" space-bottom="S">
+    <Container space-top="S" space-bottom="M">
       <Title title="Racket Vue App" />
     </Container>
     <Container space-bottom="XL">
       <RacketCreator />
     </Container>
-    <Container class="rackets" space-bottom="L">
+    <Divider size="L" />
+    <Container space-top="XL" class="rackets" space-bottom="L">
       <Racket
         v-for="(racket, index) in rackets"
         ref="rackets"
@@ -26,6 +27,8 @@ import Title from "./components/Title";
 import Container from "./components/Container";
 import Racket from "./components/Racket";
 import RacketCreator from "./components/RacketCreator";
+import Divider from "./components/Divider";
+
 import { API_URL } from "./utils";
 
 export default {
@@ -34,12 +37,11 @@ export default {
     RacketCreator,
     Title,
     Racket,
-    Container
+    Container,
+    Divider
   },
   data() {
     return {
-      timeout: null,
-      data: [],
       rackets: []
     };
   },
@@ -83,9 +85,9 @@ body {
   grid-gap: 20px;
   margin-bottom: 50px;
 }
-@media only screen and (min-device-width: 425px) {
+@media only screen and (min-device-width: 650px) {
   .rackets {
-    grid-template-columns: repeat(auto-fill, 200px);
+    grid-template-columns: repeat(auto-fill, 250px);
   }
 }
 .racket {
