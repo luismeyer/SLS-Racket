@@ -2,7 +2,6 @@ console.log("Starting Watcher");
 
 const shell = require("shelljs");
 const watch = require("node-watch");
-const path = require("path");
 
 const buildApp = () => {
   console.info("Compiling Files...");

@@ -5,7 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "docker:build": "docker build -t racket-sls-container .",
-    "secrets": "travis encrypt-file secrets/secrets.yml secrets/secrets.yml.enc",
+    "secrets": "travis encrypt-file -f secrets/secrets.yml secrets/secrets.yml.enc",
     "sls": "serverless offline --stage dev",
     "develop": "lerna run dev",
     "dev": "npm-run-all --parallel sls develop",
