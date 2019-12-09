@@ -19,13 +19,13 @@ custom:
     prod:
       LAMBDA_PATH: dist/handler.app
       EXEC_PATH: ./dist/linux-application
-      DATABASE_HOST: ${file(./secrets/secrets.yml):DATABASE_HOST}
-      DATABASE_API_KEY: ${file(./secrets/secrets.yml):DATABASE_API_KEY}
+      DATABASE_HOST: ${file(secrets/secrets.yml):DATABASE_HOST}
+      DATABASE_API_KEY: ${file(secrets/secrets.yml):DATABASE_API_KEY}
     dev:
       LAMBDA_PATH: src/api/handler.app
       EXEC_PATH: ./dev/application
-      DATABASE_HOST: ${file(./secrets/secrets.yml):DATABASE_HOST}
-      DATABASE_API_KEY: ${file(./secrets/secrets.yml):DATABASE_API_KEY}
+      DATABASE_HOST: ${file(secrets/secrets.yml):DATABASE_HOST}
+      DATABASE_API_KEY: ${file(secrets/secrets.yml):DATABASE_API_KEY}
 
 package:
   individually: true
