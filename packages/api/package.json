@@ -1,0 +1,17 @@
+{
+  "name": "racket-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/handler.js",
+  "scripts": {
+    "watch": "node ./src/scripts/watcher.js",
+    "build-dev": "raco exe --orig-exe -vo ./dev/application ./src/app.rkt",
+    "build": "node ./src/scripts/build.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-watch": "^0.6.3",
+    "shelljs": "^0.8.3"
+  }
+}

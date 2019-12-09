@@ -17,13 +17,13 @@ custom:
     distributionFolder: src/vue/dist
   environments:
     prod:
-      LAMBDA_PATH: dist/handler.app
-      EXEC_PATH: ./dist/linux-application
+      LAMBDA_PATH: packages/api/dist/handler.app
+      EXEC_PATH: ./packages/api/dist/linux-application
       DATABASE_HOST: ${file(secrets/secrets.yml):DATABASE_HOST}
       DATABASE_API_KEY: ${file(secrets/secrets.yml):DATABASE_API_KEY}
     dev:
-      LAMBDA_PATH: src/api/handler.app
-      EXEC_PATH: ./dev/application
+      LAMBDA_PATH: packages/api/src/handler.app
+      EXEC_PATH: ./packages/api/dev/application
       DATABASE_HOST: ${file(secrets/secrets.yml):DATABASE_HOST}
       DATABASE_API_KEY: ${file(secrets/secrets.yml):DATABASE_API_KEY}
 
@@ -44,4 +44,4 @@ functions:
     package:
       include:
         - secrets/**
-        - dist/**
+        - packages/api/dist/**

@@ -14,7 +14,7 @@ function initProc(options) {
 
   // Add your own custom handler if you want to handle the errors differently.
   p.stderr.on("data", err => {
-    console.error("proc stderr: ", err);
+    console.error("proc stderr: ", err.toString());
   });
 
   // You might want to use ```exit``` event instead of ```close``` if you don't

@@ -1,7 +1,12 @@
 const shell = require("shelljs");
 const fs = require("fs");
 
+// Important directories and files
+console.log(__dirname)
 const distDir = "./dist";
+const srcRoot = "./src";
+const app = `${srcRoot}/app.rkt`;
+const handler = `${srcRoot}/handler.js`;
 
 if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir);
@@ -17,13 +22,11 @@ const id = shell.exec("docker run -dt racket-sls-container").stdout.trim();
 
 // Push Application to Container
 shell.echo("Step 3/7: Copying Application to Container");
-shell.exec(`docker cp ./src/api ${id}:/api`);
+shell.exec(`docker cp ${srcRoot} ${id}:/api`);
 
 // Execute build script in the Container
 shell.echo("Step 4/7: Building Application binary");
-shell.exec(
-  `docker exec ${id} raco exe --orig-exe -o ./application ./api/app.rkt`
-);
+shell.exec(`docker exec ${id} raco exe --orig-exe -o ./application ${app}`);
 
 // Pull binary from Container
 shell.echo("Step 5/7: Pulling binary from Container");
@@ -36,4 +39,4 @@ shell.exec(`docker rm ${id}`);
 
 // Copy Lambda Handler into dist Folder
 shell.echo("Step 7/7: Moving Handler into Dist Folder");
-shell.exec(`cp ./src/api/handler.js ${distDir}/handler.js`);
+shell.exec(`cp ${handler} ${distDir}/handler.js`);

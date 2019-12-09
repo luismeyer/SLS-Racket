@@ -4,29 +4,26 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "vue:dev": "cd src/vue && npm run serve",
-    "vue:build": "cd src/vue && npm run build",
-    "vue:install": "cd src/vue && npm install",
-    "sls:dev": "serverless offline --stage dev",
     "docker:build": "docker build -t racket-sls-container .",
-    "api:watch": "node ./src/scripts/watcher.js",
-    "api:build-dev": "raco exe --orig-exe -vo ./dev/application ./src/api/app.rkt",
-    "api:build-prod": "node ./src/scripts/build.js",
-    "sls:deploy-prod": "serverless deploy --stage prod",
     "secrets": "travis encrypt-file secrets/secrets.yml secrets/secrets.yml.enc",
-    "build": "npm run api:build-prod && npm run vue:build"
+    "sls": "serverless offline --stage dev",
+    "develop": "lerna run dev",
+    "dev": "npm-run-all --parallel sls develop",
+    "watch": "lerna run --parallel watch",
+    "build": "lerna run build",
+    "bootstrap": "lerna bootstrap"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "node": "^12.1.0",
+    "npm-run-all": "^4.1.5",
     "serverless": "^1.59.2",
     "serverless-finch": "^2.4.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "node-watch": "^0.6.2",
-    "serverless-offline": "^5.10.1",
-    "shelljs": "^0.8.3"
+    "lerna": "^3.19.0",
+    "serverless-offline": "^5.10.1"
   }
 }

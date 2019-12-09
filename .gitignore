@@ -10,8 +10,8 @@ secrets.yml
 .env
 
 # Dev and Dist directories
-dist/**
-dev/application
+**/dist/**
+**/dev/application
 
 # Racket files
 **/compiled/**
