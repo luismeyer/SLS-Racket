@@ -1,6 +1,8 @@
 <template>
   <div class="title">
-    <h1>{{ title }}</h1>
+    <h1>
+      <slot></slot>
+    </h1>
     <div class="title-border" />
   </div>
 </template>
@@ -22,6 +24,8 @@ export default {
 }
 h1 {
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 .title {
   position: relative;

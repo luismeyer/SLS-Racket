@@ -1,12 +1,20 @@
 <template>
-  <div id="app">
+  <div id="app" :class="isLocked">
+    <LoginForm
+      :login-callback="this.login"
+      :close-callback="this.closeLogin"
+      :hidden="this.hideLogin"
+    />
     <Container space-top="S" space-bottom="M">
-      <Title title="Racket Vue App" />
+      <Title>Racket App</Title>
+      <Button v-if="loggedIn" @click="this.logout">LOGOUT</Button>
     </Container>
-    <Container space-bottom="XL">
-      <RacketCreator />
-    </Container>
-    <Divider size="L" />
+    <div v-if="loggedIn">
+      <Container space-bottom="XL">
+        <RacketForm />
+      </Container>
+      <Divider size="L" />
+    </div>
     <Container space-top="XL" class="rackets" space-bottom="L">
       <Racket
         v-for="(racket, index) in rackets"
@@ -18,51 +26,90 @@
         :hidden="true"
       />
     </Container>
+    <LoginFab v-if="hideLogin && !loggedIn" :click="this.openLogin" />
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+
 import Title from "./components/Title";
 import Container from "./components/Container";
 import Racket from "./components/Racket";
-import RacketCreator from "./components/RacketCreator";
+import RacketForm from "./components/RacketForm";
 import Divider from "./components/Divider";
+import LoginFab from "./components/LoginFab";
+import LoginForm from "./components/LoginForm";
 
-import { API_URL } from "./utils";
+import { spawnGridAnimation, SESSION_TOKEN_NAME } from "./utils";
+import { fetchRackets, fetchAuth } from "./rest";
 
 export default {
   name: "App",
   components: {
-    RacketCreator,
+    RacketForm,
     Title,
     Racket,
     Container,
-    Divider
+    Divider,
+    LoginFab,
+    LoginForm,
   },
   data() {
     return {
-      rackets: []
+      hideLogin: true,
+      loggedIn: false,
+      rackets: [],
     };
   },
+  computed: {
+    isLocked() {
+      return this.hideLogin ? "" : "locked";
+    },
+    notLoggedIn() {
+      return !this.loggedIn;
+    },
+  },
+  methods: {
+    openLogin() {
+      this.hideLogin = false;
+    },
+    closeLogin() {
+      this.hideLogin = true;
+    },
+    logout() {
+      Vue.$cookies.set(SESSION_TOKEN_NAME, "");
+      this.loggedIn = false;
+    },
+    login({ data }) {
+      if (data.success === "true") {
+        Vue.$cookies.set(SESSION_TOKEN_NAME, `${data.token}-${data.username}`);
+        this.loggedIn = true;
+        this.hideLogin = true;
+      }
+    },
+  },
   mounted() {
-    fetch(`${API_URL}/get/rackets`).then(response =>
-      response.json().then(({ data }) => {
-        this.rackets = JSON.parse(data);
+    const getRackets = () =>
+      fetchRackets().then(({ data }) => {
+        this.rackets = data;
+        Vue.nextTick(() => spawnGridAnimation(this.$refs.rackets));
+      });
 
-        Vue.nextTick(() => {
-          const showGridItem = index => {
-            this.$refs.rackets[index].$el.style.display = "flex";
-            if (index < this.rackets.length - 1) {
-              setTimeout(() => showGridItem(index + 1), 100);
-            }
-          };
+    const token = Vue.$cookies.get(SESSION_TOKEN_NAME);
+    if (!token) {
+      return getRackets();
+    }
 
-          showGridItem(0);
-        });
-      })
-    );
-  }
+    const [password, username] = token.split("-");
+
+    fetchAuth({
+      username: username,
+      password: password,
+    })
+      .then(this.login)
+      .then(getRackets);
+  },
 };
 </script>
 
@@ -73,10 +120,15 @@ body {
   width: 100vw;
 }
 #app {
+  position: initial;
+  width: 100vw;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: white;
+}
+#app.locked {
+  position: fixed;
 }
 .rackets {
   display: grid;

@@ -1,10 +1,7 @@
 #lang racket
-
 (require json)
 (require "../../rest/post/index.rkt")
 (require "../../rest/get/index.rkt")
-
-(provide routing)
 
 (define base-path "/dev")
 
@@ -27,3 +24,5 @@
     [("post") ((handle-post (resolver-name real-path)) (string->jsexpr data))]
     [("get") ((handle-get (resolver-name real-path)))]
     [else "No Path Found"])))
+
+(provide routing)

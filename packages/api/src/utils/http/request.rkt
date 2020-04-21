@@ -1,10 +1,7 @@
 #lang racket
-
 (require net/http-client)
-(provide post-request)
-(provide get-request)
 
-(define (post-request path body)
+(define (db-post-request path body)
    (define-values (status headers in)
       (http-sendrecv (getenv "DATABASE_HOST")
                      path
@@ -17,7 +14,7 @@
    (equal? status #"HTTP/1.1 201 Created"))
    
 
-(define (get-request path)
+(define (db-get-request path)
   (define-values (status headers in)
       (http-sendrecv  (getenv "DATABASE_HOST")
                    path
@@ -28,3 +25,6 @@
   (let ([result (port->string in)])
     (close-input-port in)
     (string-replace result "\n" "")))
+
+(provide db-post-request)
+(provide db-get-request)

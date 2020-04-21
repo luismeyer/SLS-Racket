@@ -1,3 +1,3 @@
 export * from './constants';
-export * from './spaces'
 export * from './colors'
+export * from './grid'

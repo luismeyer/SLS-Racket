@@ -84,15 +84,26 @@ exports.app = function (event, context) {
 
   // Register the handler we want for each line response!
   proc.handlerCallback = result => {
+    let apiResult;
+    try {
+      apiResult = {
+        data: JSON.parse(result),
+        success: true
+      }
+    } catch (e) {
+      apiResult = {
+        data: null,
+        success: false
+      }
+    }
+
     context.done(null, {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: JSON.stringify({
-        data: result
-      })
+      body: JSON.stringify(apiResult)
     });
   };
 
