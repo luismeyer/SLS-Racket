@@ -23,19 +23,23 @@ const id = shell.exec("docker run -dt racket-sls-container").stdout.trim();
 shell.echo("Step 3/7: Copying Application to Container");
 shell.exec(`docker cp ${srcRoot} ${id}:/`);
 
+// TODO find a good way to manage raco dependencies
+shell.echo("Step 4/8: Installing racket dependencies");
+shell.exec(`docker exec ${id} raco pkg install crypto`);
+
 // Execute build script in the Container
-shell.echo("Step 4/7: Building Application binary");
+shell.echo("Step 5/8: Building Application binary");
 shell.exec(`docker exec ${id} raco exe --orig-exe -o ./application ${app}`);
 
 // Pull binary from Container
-shell.echo("Step 5/7: Pulling binary from Container");
+shell.echo("Step 6/8: Pulling binary from Container");
 shell.exec(`docker cp ${id}:/application ${distDir}/linux-application`);
 
 // Stop the Container and remove it
-shell.echo("Step 6/7: Stopping and Removing Container");
+shell.echo("Step 7/8: Stopping and Removing Container");
 shell.exec(`docker stop ${id}`);
 shell.exec(`docker rm ${id}`);
 
 // Copy Lambda Handler into dist Folder
-shell.echo("Step 7/7: Moving Handler into Dist Folder");
+shell.echo("Step 8/8: Moving Handler into Dist Folder");
 shell.exec(`cp ${handler} ${distDir}/handler.js`);
