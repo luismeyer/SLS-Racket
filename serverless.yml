@@ -9,6 +9,7 @@ provider:
 plugins:
   - serverless-offline
   - serverless-finch
+  - serverless-dotenv-plugin
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -19,13 +20,9 @@ custom:
     prod:
       LAMBDA_PATH: packages/api/dist/handler.app
       EXEC_PATH: ./packages/api/dist/linux-application
-      DATABASE_HOST: ${file(secrets/secrets.yml):PROD_DATABASE_HOST}
-      DATABASE_API_KEY: ${file(secrets/secrets.yml):PROD_DATABASE_API_KEY}
     dev:
       LAMBDA_PATH: packages/api/src/handler.app
       EXEC_PATH: ./packages/api/dev/application
-      DATABASE_HOST: ${file(secrets/secrets.yml):DEV_DATABASE_HOST}
-      DATABASE_API_KEY: ${file(secrets/secrets.yml):DEV_DATABASE_API_KEY}
 
 package:
   individually: true
@@ -45,5 +42,3 @@ functions:
       include:
         - secrets/**
         - packages/api/dist/**
-  frontend:
-    handler: packages/frontend/dist/

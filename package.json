@@ -5,7 +5,6 @@
   "main": "handler.js",
   "scripts": {
     "docker:build": "docker build -t racket-sls-container .",
-    "secrets": "travis encrypt-file -f secrets/secrets.yml secrets/secrets.yml.enc",
     "sls": "serverless offline --stage dev",
     "develop:all": "lerna run dev",
     "dev": "npm-run-all --parallel sls develop:all",
@@ -24,6 +23,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "lerna": "^3.19.0",
+    "serverless-dotenv-plugin": "^2.4.2",
     "serverless-offline": "^5.10.1"
   }
 }
