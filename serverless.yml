@@ -40,5 +40,4 @@ functions:
           cors: true
     package:
       include:
-        - secrets/**
         - packages/api/dist/**
