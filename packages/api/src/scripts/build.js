@@ -37,8 +37,8 @@ shell.exec(`docker cp ${id}:/application ${distDir}/linux-application`);
 
 // Stop the Container and remove it
 shell.echo("Step 7/8: Stopping and Removing Container");
-shell.exec(`docker stop ${id}`);
-shell.exec(`docker rm ${id}`);
+// shell.exec(`docker stop ${id}`);
+// shell.exec(`docker rm ${id}`);
 
 // Copy Lambda Handler into dist Folder
 shell.echo("Step 8/8: Moving Handler into Dist Folder");
